@@ -1,4 +1,4 @@
-Let me play two four the nation is full of surprises. I mean food, but a food too an opportunity to you call me like twenty. Particulars formation I wanna apply sugar everybody
+import Image from "next/image";
 import diamondImage from "./diamond.jpeg";
 
 export default function Hero() {
