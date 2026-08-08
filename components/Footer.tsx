@@ -38,8 +38,8 @@ export default function Footer() {
                   />
                 </svg>
               </span>
-              <span className="text-xl font-bold text-white">
-                Diamond <span className="text-blue-300">Cleaning</span>
+<span className="text-xl font-bold text-white">
+                Diamond <span className="text-blue-300">Clean Services</span>
               </span>
             </div>
             <p className="mt-4 leading-7 text-blue-200">

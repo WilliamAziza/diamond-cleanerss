@@ -27,8 +27,8 @@ export default function Navbar() {
             height={40}
             className="h-10 w-10 rounded-full object-cover"
           />
-          <span className="text-xl font-bold text-blue-900">
-            Diamond <span className="text-blue-600">Cleaning</span>
+<span className="text-xl font-bold text-blue-900">
+            Diamond <span className="text-blue-600">Clean Services</span>
           </span>
         </a>
 
