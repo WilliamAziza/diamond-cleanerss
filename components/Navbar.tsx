@@ -1,0 +1,128 @@
+"use client";
+
+import { useState } from "react";
+
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Services", href: "#services" },
+  { label: "Why Us", href: "#why-us" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Reviews", href: "#testimonials" },
+  { label: "Contact", href: "#contact" },
+];
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-blue-100 shadow-sm">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="#home" className="flex items-center gap-2">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3L4.3 7.6l5.3-.8L12 2z"
+              />
+            </svg>
+          </span>
+          <span className="text-xl font-bold text-blue-900">
+            Diamond <span className="text-blue-600">Cleaning</span>
+          </span>
+        </a>
+
+        <ul className="hidden items-center gap-8 lg:flex">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="text-sm font-medium text-gray-600 transition-colors hover:text-blue-600"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden items-center gap-3 lg:flex">
+          <a
+            href="tel:+441234567890"
+            className="text-sm font-semibold text-blue-700 hover:text-blue-900"
+          >
+            +44 1234 567 890
+          </a>
+          <a
+            href="#booking"
+            className="rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+          >
+            Book Now
+          </a>
+        </div>
+
+        <button
+          onClick={() => setOpen(!open)}
+          className="lg:hidden"
+          aria-label="Toggle menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-7 w-7 text-blue-900"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
+          >
+            {open ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+      </nav>
+
+      {open && (
+        <div className="lg:hidden border-t border-blue-100 bg-white px-6 py-4">
+          <ul className="flex flex-col gap-3">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-2 text-sm font-medium text-gray-700 hover:text-blue-600"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href="#booking"
+                onClick={() => setOpen(false)}
+                className="mt-2 block rounded-full bg-blue-600 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-blue-700"
+              >
+                Book Now
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
+    </header>
+  );
+}
