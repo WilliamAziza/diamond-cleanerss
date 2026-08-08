@@ -1,21 +1,20 @@
+import Image from "next/image";
+import diamondImage from "./diamond.jpeg";
+
 export default function Hero() {
   return (
     <section
       id="home"
       className="relative overflow-hidden bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500 text-white"
     >
-      <div className="absolute inset-0 opacity-10">
-        <svg
-          className="h-full w-full"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 1000 1000"
-        >
-          <path
-            fill="#fff"
-            d="M500 0l60 120 134 20-97 94 23 133-120-63-120 63 23-133-97-94 134-20z"
-          />
-        </svg>
+      <div className="absolute inset-0">
+        <Image
+          src={diamondImage}
+          alt="Diamond Cleaning background"
+          fill
+          priority
+          className="h-full w-full object-cover opacity-20"
+        />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
