@@ -17,8 +17,8 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-start">
-          <BookingForm />
+        <div
+          id="booking"
 
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-blue-900">
