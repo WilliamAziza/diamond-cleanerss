@@ -100,60 +100,7 @@ export default function Hero() {
               />
             </div>
 
-            {/* Floating badge - top */}
-            <div className="absolute -right-4 top-8 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl lg:-right-6">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm font-bold text-blue-950">Guaranteed</p>
-                <p className="text-xs text-gray-500">Satisfaction</p>
-              </div>
-            </div>
-
-            {/* Floating badge - bottom */}
-            <div className="absolute -left-4 bottom-10 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl lg:-left-6">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm font-bold text-blue-950">24 hr</p>
-                <p className="text-xs text-gray-500">Fast Response</p>
-              </div>
-            </div>
-
-            {/* Eagle / stat chip */}
-            <div className="absolute -bottom-5 right-1/3 hidden rounded-2xl bg-white px-5 py-3 text-center shadow-xl sm:block">
-              <p className="text-2xl font-extrabold text-blue-600">10k+</p>
-              <p className="text-xs text-gray-500">Rooms Cleared</p>
-            </div>
-          </div>
+</div>
         </div>
       </div>
     </section>
