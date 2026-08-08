@@ -109,11 +109,11 @@ export default function Footer() {
             </h4>
             <ul className="mt-4 space-y-3 text-blue-200">
               <li>
-                <a
-                  href="tel:+441234567890"
+<a
+                  href="tel:0256731144"
                   className="hover:text-white"
                 >
-                  +44 1234 567 890
+                  0256731144
                 </a>
               </li>
               <li>

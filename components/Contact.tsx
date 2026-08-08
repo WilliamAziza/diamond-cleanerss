@@ -48,11 +48,11 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800">Phone</p>
-                  <a
-                    href="tel:+441234567890"
+<a
+                    href="tel:0256731144"
                     className="text-blue-600 hover:underline"
                   >
-                    +44 1234 567 890
+                    0256731144
                   </a>
                 </div>
               </div>

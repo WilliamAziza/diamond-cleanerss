@@ -88,7 +88,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: Image with floating cards */}
+          {/* Right: Diamond image */}
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative aspect-square overflow-hidden rounded-3xl ring-4 ring-cyan-400/30">
               <Image
@@ -99,8 +99,7 @@ export default function Hero() {
                 className="object-cover"
               />
             </div>
-
-</div>
+          </div>
         </div>
       </div>
     </section>

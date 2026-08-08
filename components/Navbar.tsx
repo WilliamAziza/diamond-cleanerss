@@ -46,11 +46,11 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="tel:+441234567890"
+<a
+            href="tel:0256731144"
             className="text-sm font-semibold text-blue-700 hover:text-blue-900"
           >
-            +44 1234 567 890
+            0256731144
           </a>
           <a
             href="#booking"
