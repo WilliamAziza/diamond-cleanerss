@@ -50,7 +50,7 @@ export default function Navbar() {
             href="tel:0256731144"
             className="text-sm font-semibold text-blue-700 hover:text-blue-900"
           >
-            02567311443
+            0256731144
           </a>
           <a
             href="#booking"
