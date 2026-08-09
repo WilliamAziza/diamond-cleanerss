@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import diamondImage from "../../../components/diamond.jpeg";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -37,25 +39,28 @@ export default function AdminLoginPage() {
     }
   };
 
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-blue-950 px-6">
-      <div className="w-full max-w-md">
+return (
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+      {/* Diamond image background */}
+      <Image
+        src={diamondImage}
+        alt=""
+        fill
+        priority
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-blue-950/85" />
+
+      <div className="relative z-10 w-full max-w-md">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-9 w-9"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3L4.3 7.6l5.3-.8L12 2z"
-              />
-            </svg>
+          <div className="mx-auto mb-4 h-24 w-24 overflow-hidden rounded-2xl ring-4 ring-cyan-400/40 shadow-2xl">
+            <Image
+              src={diamondImage}
+              alt="Diamond Clean Services"
+              width={96}
+              height={96}
+              className="h-full w-full object-cover"
+            />
           </div>
           <h1 className="text-2xl font-bold text-white">
             Diamond Cleaning Admin
@@ -63,7 +68,7 @@ export default function AdminLoginPage() {
           <p className="mt-2 text-blue-200">Sign in to manage bookings</p>
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-xl">
+        <div className="rounded-2xl bg-white/95 p-8 shadow-2xl backdrop-blur">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="mb-1.5 block text-sm font-semibold text-gray-700">

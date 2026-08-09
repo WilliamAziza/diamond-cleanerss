@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import diamondImage from "./diamond.jpeg";
 
 interface Booking {
   id: number;
@@ -94,26 +96,29 @@ const handleStatus = async (id: number, status: string) => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-blue-950 text-white">
+return (
+    <div className="relative min-h-screen">
+      {/* Diamond image background */}
+      <Image
+        src={diamondImage}
+        alt=""
+        fill
+        priority
+        className="fixed inset-0 -z-10 object-cover"
+      />
+      <div className="fixed inset-0 z-0 bg-blue-950/85" />
+
+      <header className="relative z-10 border-b border-white/10 bg-blue-950/60 text-white backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3L4.3 7.6l5.3-.8L12 2z"
-                />
-              </svg>
+            <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full ring-2 ring-cyan-400/50">
+              <Image
+                src={diamondImage}
+                alt="Diamond"
+                width={40}
+                height={40}
+                className="h-full w-full object-cover"
+              />
             </span>
             <div>
               <h1 className="text-lg font-bold">Diamond Cleaning</h1>
@@ -137,21 +142,21 @@ const handleStatus = async (id: number, status: string) => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 py-8">
+<main className="relative z-10 mx-auto max-w-7xl px-6 py-8">
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-2xl bg-white/90 p-6 shadow-sm backdrop-blur">
             <p className="text-sm font-medium text-gray-500">Total Bookings</p>
             <p className="mt-2 text-3xl font-bold text-blue-900">
               {bookings.length}
             </p>
           </div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-2xl bg-white/90 p-6 shadow-sm backdrop-blur">
             <p className="text-sm font-medium text-gray-500">Pending</p>
             <p className="mt-2 text-3xl font-bold text-yellow-500">
               {pendingCount}
             </p>
           </div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-2xl bg-white/90 p-6 shadow-sm backdrop-blur">
             <p className="text-sm font-medium text-gray-500">Confirmed</p>
             <p className="mt-2 text-3xl font-bold text-green-500">
               {confirmedCount}
@@ -167,7 +172,7 @@ const handleStatus = async (id: number, status: string) => {
               className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 filter === f
                   ? "bg-blue-600 text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
+                  : "bg-white/90 text-gray-700 backdrop-blur hover:bg-white"
               }`}
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -175,7 +180,7 @@ const handleStatus = async (id: number, status: string) => {
           ))}
         </div>
 
-        <div className="mt-6 overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div className="mt-6 overflow-hidden rounded-2xl bg-white/90 shadow-sm backdrop-blur">
           {filteredBookings.length === 0 ? (
             <p className="p-10 text-center text-gray-500">No bookings found.</p>
           ) : (
