@@ -69,8 +69,8 @@ export function createBooking(data: {
     INSERT INTO bookings (name, email, phone, service, date, time, address, notes)
     VALUES (@name, @email, @phone, @service, @date, @time, @address, @notes)
   `);
-  const info = stmt.run({ notes: data.notes ?? "", ...data });
-  return getBookingById(info.lastInsertRow as number);
+const info = stmt.run({ notes: data.notes ?? "", ...data });
+  return getBookingById(info.lastInsertRowid as number);
 }
 
 export function getBookingById(id: number): Booking {
@@ -87,5 +87,15 @@ export function getAllBookings(): Booking[] {
 
 export function deleteBooking(id: number): boolean {
   const info = db.prepare("DELETE FROM bookings WHERE id = ?").run(id);
+  return info.changes > 0;
+}
+
+export function updateBookingStatus(
+  id: number,
+  status: "pending" | "confirmed"
+): boolean {
+  const info = db
+    .prepare("UPDATE bookings SET status = ? WHERE id = ?")
+    .run(status, id);
   return info.changes > 0;
 }

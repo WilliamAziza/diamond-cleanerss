@@ -50,7 +50,7 @@ export default function AdminDashboard({ bookings }: { bookings: Booking[] }) {
     router.refresh();
   };
 
-  const handleDelete = async (id: number) => {
+const handleDelete = async (id: number) => {
     try {
       const res = await fetch("/api/bookings/delete", {
         method: "POST",
@@ -61,6 +61,33 @@ export default function AdminDashboard({ bookings }: { bookings: Booking[] }) {
         router.refresh();
       } else {
         alert("Failed to delete booking");
+      }
+    } catch {
+      alert("Something went wrong");
+    }
+  };
+
+const handleStatus = async (id: number, status: string) => {
+    try {
+      const res = await fetch("/api/bookings/status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        if (status === "confirmed") {
+          if (data.emailSent) {
+            alert("Booking confirmed. Confirmation email sent to customer.");
+          } else {
+            alert(
+              "Booking confirmed. Note: confirmation email was not sent (SMTP not configured)."
+            );
+          }
+        }
+        router.refresh();
+      } else {
+        alert(data.error || "Failed to update booking status");
       }
     } catch {
       alert("Something went wrong");
@@ -205,7 +232,7 @@ export default function AdminDashboard({ bookings }: { bookings: Booking[] }) {
                           {formatDate(booking.created_at)}
                         </td>
                         <td className="px-5 py-4">
-                          <div className="flex gap-2">
+<div className="flex gap-2">
                             <button
                               onClick={() =>
                                 setExpanded(
@@ -216,6 +243,26 @@ export default function AdminDashboard({ bookings }: { bookings: Booking[] }) {
                             >
                               {expanded === booking.id ? "Hide" : "View"}
                             </button>
+                            {booking.status === "pending" && (
+                              <button
+                                onClick={() =>
+                                  handleStatus(booking.id, "confirmed")
+                                }
+                                className="rounded-lg bg-green-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-green-700"
+                              >
+                                Confirm
+                              </button>
+                            )}
+                            {booking.status === "confirmed" && (
+                              <button
+                                onClick={() =>
+                                  handleStatus(booking.id, "pending")
+                                }
+                                className="rounded-lg bg-yellow-50 px-3 py-1.5 text-xs font-semibold text-yellow-700 hover:bg-yellow-100"
+                              >
+                                Mark Pending
+                              </button>
+                            )}
                             {confirmDelete === booking.id ? (
                               <button
                                 onClick={() => handleDelete(booking.id)}

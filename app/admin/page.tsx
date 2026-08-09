@@ -13,6 +13,5 @@ export default async function AdminPage() {
 
   const bookings = getAllBookings();
 
-  return <AdminDashboard bookings={bookings} />;
+return <AdminDashboard bookings={bookings} />;
 }
-</content>

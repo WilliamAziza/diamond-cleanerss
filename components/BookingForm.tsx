@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { SERVICE_PRICES, formatPrice } from "@/lib/stripe";
 
-const serviceOptions = [
+export const serviceOptions = [
   "Domestic Cleaning",
   "End of Tenancy Cleaning",
   "Commercial Cleaning",
@@ -11,7 +12,6 @@ const serviceOptions = [
 ];
 
 export default function BookingForm() {
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({
@@ -20,7 +20,7 @@ export default function BookingForm() {
     phone: "",
     service: serviceOptions[0],
     date: "",
-    time: "",
+    time: "morning",
     address: "",
     notes: "",
   });
@@ -39,7 +39,8 @@ export default function BookingForm() {
     setError("");
 
     try {
-      const res = await fetch("/api/bookings", {
+      // Create a Stripe Checkout session and redirect to payment
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -52,70 +53,29 @@ export default function BookingForm() {
         return;
       }
 
-      setSubmitted(true);
-      setLoading(false);
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError("Payment could not be initiated. Please try again.");
+        setLoading(false);
+      }
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
     }
   };
 
-  if (submitted) {
-    return (
-      <div className="rounded-3xl bg-white p-10 text-center shadow-xl">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-9 w-9"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-        </div>
-        <h3 className="mt-6 text-2xl font-bold text-blue-900">
-          Booking Received!
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Thank you, {form.name.split(" ")[0]}! Your booking request for{" "}
-          <strong>{form.service}</strong> has been submitted. Our team will
-          contact you shortly to confirm your appointment.
-        </p>
-        <button
-          onClick={() => {
-            setSubmitted(false);
-            setForm({
-              name: "",
-              email: "",
-              phone: "",
-              service: serviceOptions[0],
-              date: "",
-              time: "",
-              address: "",
-              notes: "",
-            });
-          }}
-          className="mt-6 rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white hover:bg-blue-700"
-        >
-          Make Another Booking
-        </button>
-      </div>
-    );
-  }
+  const selectedPrice = SERVICE_PRICES[form.service] || 5000;
 
   return (
     <div className="rounded-3xl bg-white p-8 shadow-xl md:p-10">
       <h3 className="text-2xl font-bold text-blue-900">
-        Book Your Cleaning Online
+        Book &amp; Pay Online
       </h3>
       <p className="mt-2 text-gray-600">
-        Fill in the form and we&apos;ll get back to you within 24 hours.
+        Select your service, choose a date, and pay securely online. Your
+        booking is confirmed instantly after payment.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
@@ -144,7 +104,7 @@ export default function BookingForm() {
               required
               value={form.email}
               onChange={handleChange}
-placeholder="jane@email.com"
+              placeholder="jane@email.com"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </div>
@@ -207,10 +167,9 @@ placeholder="jane@email.com"
               onChange={handleChange}
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             >
-              <option value="">Select time</option>
               <option value="morning">Morning (8am - 12pm)</option>
               <option value="afternoon">Afternoon (12pm - 5pm)</option>
-<option value="evening">Evening (5pm - 8pm)</option>
+              <option value="evening">Evening (5pm - 8pm)</option>
             </select>
           </div>
         </div>
@@ -244,6 +203,24 @@ placeholder="jane@email.com"
           />
         </div>
 
+        {/* Price summary */}
+        <div className="flex items-center justify-between rounded-xl bg-blue-50 px-5 py-4">
+          <div>
+            <p className="text-sm font-semibold text-blue-900">
+              {form.service}
+            </p>
+            <p className="text-xs text-gray-500">
+              {form.date || "Select a date"} · {form.time}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-2xl font-extrabold text-blue-900">
+              {formatPrice(selectedPrice)}
+            </p>
+            <p className="text-xs text-gray-500">Secure payment</p>
+          </div>
+        </div>
+
         {error && (
           <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
             {error}
@@ -253,10 +230,35 @@ placeholder="jane@email.com"
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-blue-600 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-blue-700 disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-3 rounded-full bg-blue-600 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-blue-700 disabled:opacity-60"
         >
-          {loading ? "Submitting..." : "Confirm Booking"}
+          {loading ? (
+            "Redirecting to payment..."
+          ) : (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 10h18M7 15h2m4 0h2m-9-5l1-4h12l1 4M5 10h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2z"
+                />
+              </svg>
+              Pay &amp; Book ({formatPrice(selectedPrice)})
+            </>
+          )}
         </button>
+
+        <p className="text-center text-xs text-gray-400">
+          🔒 Secured by Stripe. Your payment details are encrypted and never
+          stored on our servers.
+        </p>
       </form>
     </div>
   );
