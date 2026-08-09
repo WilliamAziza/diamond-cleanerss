@@ -76,11 +76,11 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800">Email</p>
-                  <a
-                    href="mailto:hello@diamondcleaning.co.uk"
+<a
+                    href="mailto:hello@diamondcleaningservices.com"
                     className="text-blue-600 hover:underline"
                   >
-                    hello@diamondcleaning.co.uk
+                    hello@diamondcleaningservices.com
                   </a>
                 </div>
               </div>
@@ -108,8 +108,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800">Location</p>
-                  <p className="text-gray-600">Serving across the UK</p>
+<p className="font-semibold text-gray-800">Location</p>
+                  <p className="text-gray-600">Accra, Ghana</p>
                 </div>
               </div>
             </div>
