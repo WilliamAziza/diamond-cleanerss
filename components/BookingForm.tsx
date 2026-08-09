@@ -12,6 +12,8 @@ const serviceOptions = [
 
 export default function BookingForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -31,9 +33,31 @@ export default function BookingForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      setSubmitted(true);
+      setLoading(false);
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -60,7 +84,7 @@ export default function BookingForm() {
         </h3>
         <p className="mt-3 text-gray-600">
           Thank you, {form.name.split(" ")[0]}! Your booking request for{" "}
-          <strong>{form.service}</strong> has been received. Our team will
+          <strong>{form.service}</strong> has been submitted. Our team will
           contact you shortly to confirm your appointment.
         </p>
         <button
@@ -120,7 +144,7 @@ export default function BookingForm() {
               required
               value={form.email}
               onChange={handleChange}
-              placeholder="jane@email.com"
+placeholder="jane@email.com"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </div>
@@ -186,7 +210,7 @@ export default function BookingForm() {
               <option value="">Select time</option>
               <option value="morning">Morning (8am - 12pm)</option>
               <option value="afternoon">Afternoon (12pm - 5pm)</option>
-              <option value="evening">Evening (5pm - 8pm)</option>
+<option value="evening">Evening (5pm - 8pm)</option>
             </select>
           </div>
         </div>
@@ -220,11 +244,18 @@ export default function BookingForm() {
           />
         </div>
 
+        {error && (
+          <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
-          className="w-full rounded-full bg-blue-600 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-blue-700"
+          disabled={loading}
+          className="w-full rounded-full bg-blue-600 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-blue-700 disabled:opacity-60"
         >
-          Confirm Booking
+          {loading ? "Submitting..." : "Confirm Booking"}
         </button>
       </form>
     </div>
