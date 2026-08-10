@@ -116,7 +116,7 @@ return (
             href="/"
             className="mt-5 block text-center text-sm font-medium text-blue-600 hover:underline"
           >
-            ← Back to websites
+            ← Back to website
           </a>
         </div>
       </div>
