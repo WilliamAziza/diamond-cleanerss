@@ -109,7 +109,7 @@ export default function Contact() {
                 </div>
                 <div>
 <p className="font-semibold text-gray-800">Location</p>
-                  <p className="text-gray-600">Accra, Ghana</p>
+                  <p className="text-gray-600">United Kingdom</p>
                 </div>
               </div>
             </div>

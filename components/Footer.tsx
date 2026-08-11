@@ -44,7 +44,7 @@ export default function Footer() {
             </div>
             <p className="mt-4 leading-7 text-blue-200">
 Professional, reliable cleaning services for homes and businesses
-              in Accra, Ghana. Sparkling results, every single time.
+              in the UK. Sparkling results, every single time.
             </p>
             <div className="mt-6 flex gap-3">
               {["Facebook", "Instagram", "Twitter"].map((social) => (
@@ -124,7 +124,7 @@ Professional, reliable cleaning services for homes and businesses
                   hello@diamondcleaningservices.com
                 </a>
               </li>
-              <li>Accra, Ghana</li>
+              <li>United Kingdom</li>
             </ul>
             <a
               href="#booking"
