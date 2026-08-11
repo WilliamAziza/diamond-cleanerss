@@ -1,3 +1,6 @@
+import Image from "next/image";
+import priceListImage from "./pricelist.jpeg";
+
 const features = [
   {
     title: "Fully Insured & Vetted",
@@ -144,23 +147,61 @@ export default function WhyChooseUs() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="rounded-2xl bg-white p-8 shadow-sm"
-            >
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-600 text-white">
-                {feature.icon}
-              </div>
-              <h3 className="mt-5 text-lg font-bold text-blue-900">
-                {feature.title}
-              </h3>
+        <div className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-start">
+          <div className="space-y-8">
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="text-xl font-bold text-blue-900">Price List</h3>
               <p className="mt-3 leading-7 text-gray-600">
-                {feature.description}
+                Check out our price list for the most popular cleaning services.
+                Download or view our latest pricing details below.
               </p>
+              <div className="mt-6 overflow-hidden rounded-3xl border border-blue-100 shadow-sm">
+                <Image
+                  src={priceListImage}
+                  alt="Price list"
+                  className="h-full w-full object-cover"
+                />
+              </div>
             </div>
-          ))}
+
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+              {features.map((feature) => (
+                <div
+                  key={feature.title}
+                  className="rounded-2xl bg-white p-8 shadow-sm"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-600 text-white">
+                    {feature.icon}
+                  </div>
+                  <h3 className="mt-5 text-lg font-bold text-blue-900">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-3 leading-7 text-gray-600">
+                    {feature.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-white p-8 shadow-sm">
+            <h3 className="text-xl font-bold text-blue-900">Why Choose Us</h3>
+            <p className="mt-3 leading-7 text-gray-600">
+              Our team delivers consistent, trusted cleaning services across the
+              UK with flexible booking, insured staff, and honest pricing.
+            </p>
+            <ul className="mt-6 space-y-4 text-gray-600">
+              <li className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
+                Transparent quotes with no surprise fees.
+              </li>
+              <li className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
+                Fully vetted cleaners using eco-friendly products.
+              </li>
+              <li className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
+                Easy online booking and responsive customer support.
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
