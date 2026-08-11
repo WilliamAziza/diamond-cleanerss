@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, getServicePrice } from "@/lib/stripe";
-import { createBooking } from "@/lib/db";
+import { createBooking, deleteBooking } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
+  let bookingId: number | null = null;
   try {
     const body = await request.json();
     const { name, email, phone, service, date, time, address, notes } = body;
@@ -36,6 +37,7 @@ export async function POST(request: NextRequest) {
       address,
       notes: notes || "",
     });
+    bookingId = booking.id;
 
     // Create a Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -72,6 +74,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Error creating checkout session:", error);
+    if (bookingId) {
+      deleteBooking(bookingId);
+    }
     return NextResponse.json(
       { error: "Payment could not be processed. Please try again." },
       { status: 500 }

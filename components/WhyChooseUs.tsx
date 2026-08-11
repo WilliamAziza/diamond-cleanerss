@@ -153,18 +153,21 @@ export default function WhyChooseUs() {
               <h3 className="text-xl font-bold text-blue-900">Price List</h3>
               <p className="mt-3 leading-7 text-gray-600">
                 Check out our price list for the most popular cleaning services.
-                Download or view our latest pricing details below.
+                Download or view the latest pricing details below.
               </p>
-              <div className="mt-6 overflow-hidden rounded-3xl border border-blue-100 shadow-sm">
+              <div className="relative mt-6 overflow-hidden rounded-3xl border border-blue-100 shadow-sm aspect-[4/3]">
                 <Image
                   src={priceListImage}
-                  alt="Price list"
-                  className="h-full w-full object-cover"
+                  alt="Cleaning service price list"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  className="object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2">
               {features.map((feature) => (
                 <div
                   key={feature.title}

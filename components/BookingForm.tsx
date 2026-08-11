@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { SERVICE_PRICES, formatPrice } from "@/lib/stripe";
 
 export const serviceOptions = [
   "Domestic Cleaning",
@@ -14,6 +13,7 @@ export const serviceOptions = [
 export default function BookingForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -37,10 +37,10 @@ export default function BookingForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     try {
-      // Create a Stripe Checkout session and redirect to payment
-      const res = await fetch("/api/checkout", {
+      const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -53,29 +53,32 @@ export default function BookingForm() {
         return;
       }
 
-      // Redirect to Stripe Checkout
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        setError("Payment could not be initiated. Please try again.");
-        setLoading(false);
-      }
+      setSuccess("Thank you for booking! We have received your booking and will contact you soon.");
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        service: serviceOptions[0],
+        date: "",
+        time: "morning",
+        address: "",
+        notes: "",
+      });
+      setLoading(false);
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
     }
   };
 
-  const selectedPrice = SERVICE_PRICES[form.service] || 5000;
-
   return (
     <div className="rounded-3xl bg-white p-8 shadow-xl md:p-10">
       <h3 className="text-2xl font-bold text-blue-900">
-        Book &amp; Pay Online
+        Book Now
       </h3>
       <p className="mt-2 text-gray-600">
-        Select your service, choose a date, and pay securely online. Your
-        booking is confirmed instantly after payment.
+        Select your service and preferred date, then book your cleaning. We will
+        contact you shortly to confirm the appointment.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
@@ -203,27 +206,15 @@ export default function BookingForm() {
           />
         </div>
 
-        {/* Price summary */}
-        <div className="flex items-center justify-between rounded-xl bg-blue-50 px-5 py-4">
-          <div>
-            <p className="text-sm font-semibold text-blue-900">
-              {form.service}
-            </p>
-            <p className="text-xs text-gray-500">
-              {form.date || "Select a date"} · {form.time}
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-2xl font-extrabold text-blue-900">
-              {formatPrice(selectedPrice)}
-            </p>
-            <p className="text-xs text-gray-500">Secure payment</p>
-          </div>
-        </div>
-
         {error && (
           <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
             {error}
+          </p>
+        )}
+
+        {success && (
+          <p className="rounded-lg bg-green-50 px-4 py-2.5 text-sm font-medium text-green-700">
+            {success}
           </p>
         )}
 
@@ -232,33 +223,8 @@ export default function BookingForm() {
           disabled={loading}
           className="flex w-full items-center justify-center gap-3 rounded-full bg-blue-600 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-blue-700 disabled:opacity-60"
         >
-          {loading ? (
-            "Redirecting to payment..."
-          ) : (
-            <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3 10h18M7 15h2m4 0h2m-9-5l1-4h12l1 4M5 10h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2z"
-                />
-              </svg>
-              Pay &amp; Book ({formatPrice(selectedPrice)})
-            </>
-          )}
+          {loading ? "Submitting booking..." : "Book Now"}
         </button>
-
-        <p className="text-center text-xs text-gray-400">
-          🔒 Secured by Stripe. Your payment details are encrypted and never
-          stored on our servers.
-        </p>
       </form>
     </div>
   );
