@@ -109,7 +109,7 @@ export default function Contact() {
                 </div>
                 <div>
 <p className="font-semibold text-gray-800">Location</p>
-                  <p className="text-gray-600">United Kingdom</p>
+                  <p className="text-gray-600">123 Baker Street, London, UK</p>
                 </div>
               </div>
             </div>

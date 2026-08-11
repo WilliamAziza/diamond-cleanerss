@@ -110,10 +110,10 @@ Professional, reliable cleaning services for homes and businesses
             <ul className="mt-4 space-y-3 text-blue-200">
               <li>
 <a
-                  href="tel:0256731144"
+                  href="tel:+442079460018"
                   className="hover:text-white"
                 >
-                  0256731144
+                  +44 20 7946 0018
                 </a>
               </li>
               <li>
@@ -124,6 +124,7 @@ Professional, reliable cleaning services for homes and businesses
                   hello@diamondcleaningservices.com
                 </a>
               </li>
+              <li>123 Baker Street, London</li>
               <li>United Kingdom</li>
             </ul>
             <a
