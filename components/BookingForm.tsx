@@ -13,7 +13,12 @@ export const serviceOptions = [
 export default function BookingForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedBooking, setSubmittedBooking] = useState<{
+    name: string;
+    service: string;
+    date: string;
+  } | null>(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -37,7 +42,6 @@ export default function BookingForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setSuccess("");
 
     try {
       const res = await fetch("/api/bookings", {
@@ -53,7 +57,12 @@ export default function BookingForm() {
         return;
       }
 
-      setSuccess("Thank you for booking! We have received your booking and will contact you soon.");
+      setSubmittedBooking({
+        name: form.name,
+        service: form.service,
+        date: form.date,
+      });
+      setSubmitted(true);
       setForm({
         name: "",
         email: "",
@@ -71,11 +80,50 @@ export default function BookingForm() {
     }
   };
 
+  if (submitted && submittedBooking) {
+    return (
+      <div className="rounded-3xl bg-white p-8 shadow-xl md:p-10">
+        <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-green-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h3 className="mt-5 text-2xl font-bold text-blue-900">
+            Thank you for booking
+          </h3>
+          <p className="mt-3 text-gray-600">
+            Your booking request for {submittedBooking.service} on {submittedBooking.date} has been received.
+          </p>
+          <p className="mt-2 text-gray-600">
+            We will contact you soon to confirm your appointment.
+          </p>
+          <button
+            type="button"
+            onClick={() => setSubmitted(false)}
+            className="mt-6 rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-700"
+          >
+            Make another booking
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-3xl bg-white p-8 shadow-xl md:p-10">
-      <h3 className="text-2xl font-bold text-blue-900">
-        Book Now
-      </h3>
+      <h3 className="text-2xl font-bold text-blue-900">Book Now</h3>
       <p className="mt-2 text-gray-600">
         Select your service and preferred date, then book your cleaning. We will
         contact you shortly to confirm the appointment.
@@ -209,12 +257,6 @@ export default function BookingForm() {
         {error && (
           <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
             {error}
-          </p>
-        )}
-
-        {success && (
-          <p className="rounded-lg bg-green-50 px-4 py-2.5 text-sm font-medium text-green-700">
-            {success}
           </p>
         )}
 
