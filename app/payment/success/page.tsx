@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function PaymentSuccess() {
+export default function BookingRequestSuccess() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-blue-50 px-6">
       <div className="w-full max-w-md rounded-3xl bg-white p-10 text-center shadow-xl">
@@ -17,12 +17,11 @@ export default function PaymentSuccess() {
           </svg>
         </div>
         <h1 className="mt-6 text-3xl font-extrabold text-blue-900">
-          Payment Successful!
+          Booking Request Received
         </h1>
         <p className="mt-4 leading-7 text-gray-600">
-          Thank you for your booking! Your payment has been received and your
-          cleaning appointment is confirmed. We&apos;ll be in touch shortly with
-          the details.
+          Thank you for your booking request. We&apos;ll review your details and
+          contact you shortly to confirm your appointment.
         </p>
         <div className="mt-8 flex flex-col gap-3">
           <Link

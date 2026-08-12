@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function PaymentCancel() {
+export default function BookingRequestCancelled() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-blue-50 px-6">
       <div className="w-full max-w-md rounded-3xl bg-white p-10 text-center shadow-xl">
@@ -21,11 +21,11 @@ export default function PaymentCancel() {
           </svg>
         </div>
         <h1 className="mt-6 text-3xl font-extrabold text-blue-900">
-          Payment Cancelled
+          Booking Request Cancelled
         </h1>
         <p className="mt-4 leading-7 text-gray-600">
-          Your payment was not completed. No charges have been made. You can
-          try again whenever you&apos;re ready.
+          Your booking request was not submitted. You can try again anytime and
+          we&apos;ll be happy to help.
         </p>
         <div className="mt-8 flex flex-col gap-3">
           <Link
