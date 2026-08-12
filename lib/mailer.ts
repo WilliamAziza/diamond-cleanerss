@@ -40,7 +40,7 @@ export async function sendConfirmationEmail(
       auth: { user, pass },
     });
 
-    const subject = `Your ${data.service} Booking is Confirmed! 🎉`;
+    const subject = `Booking confirmed for ${data.service}`;
     const html = `
       <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1e293b;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;">
         <div style="text-align:center;padding:20px;background:#2563eb;border-radius:10px 10px 0 0;">
@@ -85,18 +85,26 @@ export async function sendConfirmationEmail(
       `Our team will arrive at the scheduled time. If you have any questions, contact us.\n\n` +
       `- Diamond Cleaning Services`;
 
-    await transporter.sendMail({
-      from: `"${from}" <${user}>`,
-      to: data.email,
+    const cc = process.env.SMTP_CC || process.env.SMTP_USER;
+    const recipients = [data.email, cc].filter(
+      (email): email is string => Boolean(email)
+    );
+
+    const info = await transporter.sendMail({
+      from: `Diamond Cleaning Services <${user}>`,
+      to: recipients[0],
+      cc: recipients.length > 1 ? recipients.slice(1) : undefined,
       subject,
       text,
       html,
     });
 
-    console.log("[email] Confirmation email sent to", data.email);
+    console.log("[email] Confirmation email sent to", recipients.join(", "));
+    console.log("[email] Message ID:", info.messageId);
     return true;
   } catch (error) {
-    console.error("[email] Failed to send email:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("[email] Failed to send email:", message);
     return false;
   }
 }
