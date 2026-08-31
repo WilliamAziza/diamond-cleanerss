@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Diamond Cleaning Services | Professional Cleaning You Can Trust",
   description:
     "Diamond Cleaning Services offers professional domestic, commercial, deep, carpet, and end of tenancy cleaning. Book online today for sparkling clean results.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
