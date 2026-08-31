@@ -21,7 +21,7 @@ export async function sendConfirmationEmail(
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || "Diamond Cleaning Services";
+  const from = process.env.SMTP_FROM || "Diamond Clean Services";
 
   // If SMTP not configured, skip silently (log it) and don't break the flow.
   if (!host || !user || !pass) {
@@ -44,7 +44,7 @@ export async function sendConfirmationEmail(
     const html = `
       <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1e293b;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;">
         <div style="text-align:center;padding:20px;background:#2563eb;border-radius:10px 10px 0 0;">
-          <h1 style="color:#ffffff;margin:0;font-size:24px;">💎 Diamond Cleaning Services</h1>
+          <h1 style="color:#ffffff;margin:0;font-size:24px;">💎 Diamond Clean Services</h1>
         </div>
         <div style="padding:24px;background:#ffffff;border-radius:0 0 10px 10px;">
           <h2 style="color:#1e3a8a;margin-top:0;">Hi ${data.name},</h2>
@@ -74,7 +74,7 @@ export async function sendConfirmationEmail(
           </table>
 
           <p style="margin-top:20px;">Our team will arrive at the scheduled time. If you have any questions, don't hesitate to contact us.</p>
-          <p style="color:#64748b;font-size:13px;">This is an automated email from Diamond Cleaning Services.</p>
+          <p style="color:#64748b;font-size:13px;">This is an automated email from Diamond Clean Services.</p>
         </div>
       </div>
     `;
@@ -83,7 +83,7 @@ export async function sendConfirmationEmail(
       `Booking Reference: #${data.id}\nService: ${data.service}\n` +
       `Date: ${data.date}\nTime: ${data.time}\nAddress: ${data.address}\n\n` +
       `Our team will arrive at the scheduled time. If you have any questions, contact us.\n\n` +
-      `- Diamond Cleaning Services`;
+      `- Diamond Clean Services`;
 
     const cc = process.env.SMTP_CC || process.env.SMTP_USER;
     const recipients = [data.email, cc].filter(
@@ -91,7 +91,7 @@ export async function sendConfirmationEmail(
     );
 
     const info = await transporter.sendMail({
-      from: `Diamond Cleaning Services <${user}>`,
+      from: `Diamond Clean Services <${user}>`,
       to: recipients[0],
       cc: recipients.length > 1 ? recipients.slice(1) : undefined,
       subject,
