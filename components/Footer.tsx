@@ -110,10 +110,10 @@ Professional, reliable cleaning services for homes and businesses
             <ul className="mt-4 space-y-3 text-blue-200">
               <li>
 <a
-                  href="tel:+442079460018"
+                  href="tel:+447477133182"
                   className="hover:text-white"
                 >
-                  +44 20 7946 0018
+                  +447477133182
                 </a>
               </li>
               <li>
