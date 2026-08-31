@@ -49,10 +49,10 @@ export default function Contact() {
                 <div>
                   <p className="font-semibold text-gray-800">Phone</p>
 <a
-                    href="tel:0256731144"
+                    href="tel:+447477133182"
                     className="text-blue-600 hover:underline"
                   >
-                    0256731144
+                    +447477133182
                   </a>
                 </div>
               </div>
