@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
 
-    const deleted = deleteBooking(Number(id));
+    const deleted = await deleteBooking(Number(id));
     if (!deleted) {
       return NextResponse.json(
         { error: "Booking not found" },

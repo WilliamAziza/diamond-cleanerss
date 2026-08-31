@@ -11,7 +11,7 @@ export default async function AdminPage() {
     redirect("/admin/login");
   }
 
-  const bookings = getAllBookings();
+  const bookings = await getAllBookings();
 
-return <AdminDashboard bookings={bookings} />;
+  return <AdminDashboard bookings={bookings} />;
 }

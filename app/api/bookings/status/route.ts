@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const booking = getBookingById(Number(id));
+    const booking = await getBookingById(Number(id));
     if (!booking) {
       return NextResponse.json(
         { error: "Booking not found" },
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const updated = updateBookingStatus(Number(id), status);
+    const updated = await updateBookingStatus(Number(id), status);
     if (!updated) {
       return NextResponse.json(
         { error: "Booking not found" },

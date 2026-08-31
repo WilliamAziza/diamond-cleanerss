@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const booking = createBooking({
+    const booking = await createBooking({
       name,
       email,
       phone,
@@ -46,6 +46,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const bookings = getAllBookings();
+  const bookings = await getAllBookings();
   return NextResponse.json({ bookings });
 }
