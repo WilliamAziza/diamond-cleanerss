@@ -77,10 +77,10 @@ export default function Contact() {
                 <div>
                   <p className="font-semibold text-gray-800">Email</p>
 <a
-                    href="mailto:hello@diamondcleaningservices.com"
+                    href="mailto:gloria@diamondcleanservices.co.uk"
                     className="text-blue-600 hover:underline"
                   >
-                    hello@diamondcleaningservices.com
+                    gloria@diamondcleanservices.co.uk
                   </a>
                 </div>
               </div>

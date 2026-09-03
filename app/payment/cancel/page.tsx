@@ -27,6 +27,9 @@ export default function BookingRequestCancelled() {
           Your booking request was not submitted. You can try again anytime and
           we&apos;ll be happy to help.
         </p>
+        <p className="mt-3 text-sm text-gray-500">
+          Refund requests for paid bookings must be submitted at least 48 hours before the scheduled service.
+        </p>
         <div className="mt-8 flex flex-col gap-3">
           <Link
             href="/#booking"

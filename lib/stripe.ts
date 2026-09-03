@@ -24,3 +24,13 @@ export function getServicePrice(service: string): number {
 export function formatPrice(pence: number): string {
   return `£${(pence / 100).toFixed(2)}`;
 }
+
+export function getStripeClient() {
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error("STRIPE_SECRET_KEY is not configured.");
+  }
+
+  const Stripe = require("stripe");
+  return new Stripe(secretKey);
+}

@@ -118,10 +118,10 @@ Professional, reliable cleaning services for homes and businesses
               </li>
               <li>
 <a
-                  href="mailto:hello@diamondcleaningservices.com"
+                  href="mailto:gloria@diamondcleanservices.co.uk"
                   className="hover:text-white"
                 >
-                  hello@diamondcleaningservices.com
+                  gloria@diamondcleanservices.co.uk
                 </a>
               </li>
               <li>123 Baker Street, London</li>

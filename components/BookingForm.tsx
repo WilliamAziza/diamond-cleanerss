@@ -44,7 +44,7 @@ export default function BookingForm() {
     setError("");
 
     try {
-      const res = await fetch("/api/bookings", {
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -57,23 +57,13 @@ export default function BookingForm() {
         return;
       }
 
-      setSubmittedBooking({
-        name: form.name,
-        service: form.service,
-        date: form.date,
-      });
-      setSubmitted(true);
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        service: serviceOptions[0],
-        date: "",
-        time: "morning",
-        address: "",
-        notes: "",
-      });
-      setLoading(false);
+      if (!data.url) {
+        setError("Payment could not be started. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      window.location.assign(data.url);
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
