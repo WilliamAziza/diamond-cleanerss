@@ -21,18 +21,13 @@ export async function sendConfirmationEmail(
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
-  const fromName = process.env.SMTP_FROM || "Diamond Clean Services";
-  const missing = [
-    !host && "SMTP_HOST",
-    !user && "SMTP_USER",
-    !pass && "SMTP_PASS",
-  ].filter(Boolean) as string[];
+  const from = process.env.SMTP_FROM || "Diamond Clean Services";
 
-  // If SMTP is not configured, skip without breaking the booking flow and log
-  // exactly what is missing to make setup errors easy to diagnose.
-  if (missing.length > 0) {
+  // If SMTP not configured, skip silently (log it) and don't break the flow.
+  if (!host || !user || !pass) {
     console.log(
-      `[email] SMTP configuration incomplete. Missing: ${missing.join(", ")}. Skipping confirmation email to ${data.email}`
+      "[email] SMTP not configured. Skipping confirmation email to",
+      data.email
     );
     return false;
   }
@@ -96,7 +91,7 @@ export async function sendConfirmationEmail(
     );
 
     const info = await transporter.sendMail({
-      from: `${fromName} <${user}>`,
+      from: `Diamond Clean Services <${user}>`,
       to: recipients[0],
       cc: recipients.length > 1 ? recipients.slice(1) : undefined,
       subject,
